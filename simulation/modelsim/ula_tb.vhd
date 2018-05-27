@@ -81,26 +81,29 @@ BEGIN
     -- subu
     aluctl <=  "0101"; A <= X"00000004"; B <= X"00000010";
     wait for 10 ns;
-    -- slt
-    aluctl <=  "0110"; A <= X"00000004"; B <= X"00000010";
+    -- slt 1
+    aluctl <=  "0110"; A <= X"0000195D"; B <= X"0000618D";
+    wait for 10 ns;
+    -- slt 2
+    aluctl <=  "0110"; A <= X"00000002"; B <= X"00000001";
     wait for 10 ns;
     -- sltu
-    aluctl <=  "0111"; A <= X"00000004"; B <= X"00000010";
+    aluctl <=  "0111"; A <= X"0000195D"; B <= X"0000618D";
     wait for 10 ns;
     -- nor
-    aluctl <=  "1000"; A <= X"00000004"; B <= X"00000010";
+    aluctl <=  "1000"; A <= X"FF00FF00"; B <= X"FFFF0000";
     wait for 10 ns;
     -- xor
-    aluctl <=  "1001"; A <= X"00000004"; B <= X"00000010";
+    aluctl <=  "1001"; A <= X"0F0F0F0F"; B <= X"F0F0FFFF";
     wait for 10 ns;
     -- sll
-    aluctl <=  "1010"; A <= X"00000004"; B <= X"00000010";
+    aluctl <=  "1010"; A <= X"0000000F"; B <= X"00000004";
     wait for 10 ns;
     -- srl
-    aluctl <=  "1011"; A <= X"00000004"; B <= X"00000010";
+    aluctl <=  "1011"; A <= X"0000000F"; B <= X"00000004";
     wait for 10 ns;
     -- sra
-    aluctl <=  "1100"; A <= X"00000004"; B <= X"00000010";
+    aluctl <=  "1100"; A <= X"0000000F"; B <= X"00000004";
     wait for 10 ns;
     -- rtr
     aluctl <=  "1101"; A <= X"0000000F"; B <= X"00000004";
