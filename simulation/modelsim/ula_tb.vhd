@@ -67,7 +67,7 @@ BEGIN
     aluctl <=  "0000"; A <= X"0000000F"; B <= X"00000003";
     wait for 10 ns;
     -- or
-    aluctl <=  "0001"; A <= X"0000000C"; B <= X"0000003";
+    aluctl <=  "0001"; A <= X"0000000C"; B <= X"00000003";
     wait for 10 ns;
     -- add
     aluctl <=  "0010"; A <= X"FFFFFFFF"; B <= X"0000000F";
