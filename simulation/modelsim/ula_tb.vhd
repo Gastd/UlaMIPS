@@ -65,51 +65,51 @@ BEGIN
         -- code that executes only once           
     -- and
     aluctl <=  "0000"; A <= X"0000000F"; B <= X"00000003";
-    wait for 10 ns;
+    wait for 10 ps;
     -- or
     aluctl <=  "0001"; A <= X"0000000C"; B <= X"00000003";
-    wait for 10 ns;
+    wait for 10 ps;
     -- add
-    aluctl <=  "0010"; A <= X"FFFFFFFF"; B <= X"0000000F";
-    wait for 10 ns;
+    aluctl <=  "0010"; A <= X"7FFFFFFF"; B <= X"7FFFFFFF";
+    wait for 10 ps;
     -- addu
     aluctl <=  "0011"; A <= X"00000004"; B <= X"00000010";
-    wait for 10 ns;
+    wait for 10 ps;
     -- sub
     aluctl <=  "0100"; A <= X"00000004"; B <= X"00000010";
-    wait for 10 ns;
+    wait for 10 ps;
     -- subu
     aluctl <=  "0101"; A <= X"00000004"; B <= X"00000010";
-    wait for 10 ns;
+    wait for 10 ps;
     -- slt 1
     aluctl <=  "0110"; A <= X"0000195D"; B <= X"0000618D";
-    wait for 10 ns;
+    wait for 10 ps;
     -- slt 2
     aluctl <=  "0110"; A <= X"00000002"; B <= X"00000001";
-    wait for 10 ns;
+    wait for 10 ps;
     -- sltu
     aluctl <=  "0111"; A <= X"0000195D"; B <= X"0000618D";
-    wait for 10 ns;
+    wait for 10 ps;
     -- nor
     aluctl <=  "1000"; A <= X"FF00FF00"; B <= X"FFFF0000";
-    wait for 10 ns;
+    wait for 10 ps;
     -- xor
     aluctl <=  "1001"; A <= X"0F0F0F0F"; B <= X"F0F0FFFF";
-    wait for 10 ns;
+    wait for 10 ps;
     -- sll
     aluctl <=  "1010"; A <= X"0000000F"; B <= X"00000004";
-    wait for 10 ns;
+    wait for 10 ps;
     -- srl
-    aluctl <=  "1011"; A <= X"0000000F"; B <= X"00000004";
-    wait for 10 ns;
+    aluctl <=  "1011"; A <= X"000000F0"; B <= X"00000004";
+    wait for 10 ps;
     -- sra
-    aluctl <=  "1100"; A <= X"0000000F"; B <= X"00000004";
-    wait for 10 ns;
+    aluctl <=  "1100"; A <= X"0000F000"; B <= X"00000008";
+    wait for 10 ps;
     -- rtr
     aluctl <=  "1101"; A <= X"0000000F"; B <= X"00000004";
-    wait for 10 ns;
+    wait for 10 ps;
     -- rtl  
-    aluctl <=  "1101"; A <= X"0000000F"; B <= X"00000004";
-    wait for 10 ns;
+    aluctl <=  "1110"; A <= X"000000F0"; B <= X"00000008";
+    wait for 10 ps;
 END PROCESS init;
 END ula_arch;
