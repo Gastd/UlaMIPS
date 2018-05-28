@@ -3,6 +3,9 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 use ieee.numeric_std.all;
 
+-- Notes:
+-- Add more test for arithmetic operations
+
 entity ula is
     port(   aluctl:  in  std_logic_vector(3 downto 0);
             A, B: in  std_logic_vector(31 downto 0);
@@ -31,15 +34,15 @@ begin
             when  "0001" =>
                 result <= A or B; -- or
             when  "0010" =>
-                result <= A + B; -- add com overflow
+                result <= A + B; -- add with overflow
                 overflow <= (A(31) xnor B(31)) and (A(31) xor result(31));
             when  "0011" =>
-                result <= A + B; -- addu sem overflow
+                result <= A + B; -- addu w/o overflow
             when  "0100" =>
-                result <= tmp; -- sub com overflow
+                result <= tmp; -- sub with overflow
                 overflow <= (B(31) and result(31));
             when  "0101" =>
-                result <= tmp; -- subu sem overflow
+                result <= tmp; -- subu w/o overflow
             when  "0110" =>
                 result <= (0 => tmp(31), others => '0'); -- slt
             when  "0111" =>
