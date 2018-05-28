@@ -69,17 +69,53 @@ BEGIN
     -- or
     aluctl <=  "0001"; A <= X"0000000C"; B <= X"00000003";
     wait for 10 ps;
-    -- add
+    -- add: result = 0
+    aluctl <=  "0010"; A <= X"00000004"; B <= X"FFFFFFFC";
+    wait for 10 ps;
+    -- add: result = overflow
     aluctl <=  "0010"; A <= X"7FFFFFFF"; B <= X"7FFFFFFF";
     wait for 10 ps;
-    -- addu
+    -- add: result = postivo
+    aluctl <=  "0010"; A <= X"00000004"; B <= X"00000010";
+    wait for 10 ps;
+    -- add: result = negativo
+    aluctl <=  "0010"; A <= X"FFFFFFF4"; B <= X"FFFFFFFA";
+    wait for 10 ps;
+    -- addu: result = 0
+    aluctl <=  "0011"; A <= X"00000004"; B <= X"FFFFFFFC";
+    wait for 10 ps;
+    -- addu: result = overflow
+    aluctl <=  "0011"; A <= X"7FFFFFFF"; B <= X"7FFFFFFF";
+    wait for 10 ps;
+    -- addu: result = postivo
     aluctl <=  "0011"; A <= X"00000004"; B <= X"00000010";
     wait for 10 ps;
-    -- sub
+    -- addu: result = negativo
+    aluctl <=  "0011"; A <= X"FFFFFFF4"; B <= X"FFFFFFFA";
+    wait for 10 ps;
+    -- sub: zero
+    aluctl <=  "0100"; A <= X"00000004"; B <= X"00000004";
+    wait for 10 ps;
+    -- sub: overflow
     aluctl <=  "0100"; A <= X"7FFFFFFF"; B <= X"FFFFFFFA";
     wait for 10 ps;
-    -- subu
+    -- sub: positivo
+    aluctl <=  "0100"; A <= X"FFFFFFFF"; B <= X"FFFFFFFA";
+    wait for 10 ps;
+    -- sub: negativo
+    aluctl <=  "0100"; A <= X"00000005"; B <= X"00000022";
+    wait for 10 ps;
+    -- subu: zero
+    aluctl <=  "0101"; A <= X"00000004"; B <= X"00000004";
+    wait for 10 ps;
+    -- subu: negativo
     aluctl <=  "0101"; A <= X"00000004"; B <= X"00000010";
+    wait for 10 ps;
+    -- subu: positvo
+    aluctl <=  "0101"; A <= X"00000CAD"; B <= X"FFFFFF10";
+    wait for 10 ps;
+    -- subu: overflow
+    aluctl <=  "0101"; A <= X"7FFFFFFF"; B <= X"FFFFFFFA";
     wait for 10 ps;
     -- slt 1
     aluctl <=  "0110"; A <= X"0000195D"; B <= X"0000618D";
