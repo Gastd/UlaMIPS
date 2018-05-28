@@ -22,7 +22,7 @@ begin
     proc_ula: process (A, B, aluctl, result, tmp, tmp2) is
         variable shift, count : integer;
     begin
-        count := to_integer(unsigned(B));
+        count := to_integer(unsigned(A));
         if (result = X"00000000") then zero <= '1'; else zero <= '0'; end if;
         overflow <= '0';
         case aluctl is
@@ -37,7 +37,7 @@ begin
                 result <= A + B; -- addu sem overflow
             when  "0100" =>
                 result <= tmp; -- sub com overflow
-                overflow <= (A(31) xnor B(31)) and (A(31) xor result(31));
+                overflow <= (B(31) and result(31));
             when  "0101" =>
                 result <= tmp; -- subu sem overflow
             when  "0110" =>
@@ -49,7 +49,7 @@ begin
             when  "1001" =>
                 result <= A xor B; -- xor
             when  "1010" =>
-                shift := to_integer(unsigned(A));
+                shift := to_integer(unsigned(B));
                 FOR i IN 0 TO 32 LOOP
                     shift := to_integer(shift_left(to_unsigned(shift, 32), 1)); -- sll
                     count := count - 1;
@@ -57,7 +57,7 @@ begin
                 END LOOP;
                 result <= std_logic_vector(to_unsigned(shift, 32));
             when  "1011" =>
-                shift := to_integer(unsigned(A));
+                shift := to_integer(unsigned(B));
                 FOR i IN 0 TO 32 LOOP
                     shift := to_integer(shift_right(to_unsigned(shift, 32), 1)); -- srl
                     count := count - 1;
@@ -65,7 +65,7 @@ begin
                 END LOOP;
                 result <= std_logic_vector(to_unsigned(shift, 32));
             when  "1100" =>
-                shift := to_integer(unsigned(A));
+                shift := to_integer(unsigned(B));
                 FOR i IN 0 TO 32 LOOP
                     shift := to_integer(shift_right(to_signed(shift, 32), 1)); -- sra
                     count := count - 1;
@@ -73,7 +73,7 @@ begin
                 END LOOP;
                 result <= std_logic_vector(to_signed(shift, 32));
             when  "1101" =>
-                shift := to_integer(unsigned(A));
+                shift := to_integer(unsigned(B));
                 FOR i IN 0 TO 32 LOOP
                     shift := to_integer(rotate_right(to_signed(shift, 32), 1)); -- rtr
                     count := count - 1;
@@ -81,7 +81,7 @@ begin
                 END LOOP;
                 result <= std_logic_vector(to_signed(shift, 32));
             when  "1110" =>
-                shift := to_integer(unsigned(A));
+                shift := to_integer(unsigned(B));
                 FOR i IN 0 TO 32 LOOP
                     shift := to_integer(rotate_left(to_signed(shift, 32), 1)); -- rtl
                     count := count - 1;
