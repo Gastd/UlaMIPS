@@ -2,12 +2,13 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 use ieee.numeric_std.all;
+use work.Types.all;
 
 -- Notes:
 -- Add more test for arithmetic operations
 
 entity ula is
-    port(   aluctl:  in  std_logic_vector(3 downto 0);
+    port(   aluctl:  in ULA_OP;
             A, B: in  std_logic_vector(31 downto 0);
             Z: out std_logic_vector(31 downto 0);
             ovfl: out std_logic;
@@ -28,45 +29,45 @@ begin
         if (result = X"00000000") then zero <= '1'; else zero <= '0'; end if;
         ovfl <= '0';
         case aluctl is
-            when  "0000" =>
+            when  AND_OP =>
                 result <= A and B; -- and
-            when  "0001" =>
+            when  OR_OP =>
                 result <= A or B; -- or
-            when  "0010" =>
+            when  ADD_OP =>
                 result <= A + B; -- add with overflow
                 ovfl <= (A(31) xnor B(31)) and (A(31) xor result(31));
-            when  "0011" =>
+            when  ADDU_OP =>
                 result <= A + B; -- addu w/o overflow
-            when  "0100" =>
+            when  SUB_OP =>
                 result <= tmp; -- sub with overflow
                 ovfl <= (B(31) and result(31));
-            when  "0101" =>
+            when  SUBU_OP =>
                 result <= tmp; -- subu w/o overflow
-            when  "0110" =>
+            when  SLT_OP =>
                 result <= (0 => tmp(31), others => '0'); -- slt
-            when  "0111" =>
+            when  SLTU_OP =>
                 result <= (0 => tmp2(31), others => '0'); -- sltu
-            when  "1000" =>
+            when  NOR_OP =>
                 result <= A nor B; -- nor
-            when  "1001" =>
+            when  XOR_OP =>
                 result <= A xor B; -- xor
-            when  "1010" =>
+            when  SLL_OP =>
                 shift := to_integer(unsigned(B));
                 shift := to_integer(shift_left(to_unsigned(shift, 32), to_integer(unsigned(A)))); -- sll
                 result <= std_logic_vector(to_unsigned(shift, 32));
-            when  "1011" =>
+            when  SRL_OP =>
                 shift := to_integer(unsigned(B));
                 shift := to_integer(shift_right(to_unsigned(shift, 32), to_integer(unsigned(A)))); -- srl
                 result <= std_logic_vector(to_unsigned(shift, 32));
-            when  "1100" =>
+            when  SRA_OP =>
                 shift := to_integer(unsigned(B));
                 shift := to_integer(shift_right(to_signed(shift, 32), to_integer(unsigned(A)))); -- sra
                 result <= std_logic_vector(to_signed(shift, 32));
-            when  "1101" =>
+            when  RTR_OP =>
                 shift := to_integer(unsigned(B));
                 shift := to_integer(rotate_right(to_signed(shift, 32), to_integer(unsigned(A)))); -- rtr
                 result <= std_logic_vector(to_signed(shift, 32));
-            when  "1110" =>
+            when  RTL_OP =>
                 shift := to_integer(unsigned(B));
                 shift := to_integer(rotate_left(to_signed(shift, 32), to_integer(unsigned(A)))); -- rtl
                 result <= std_logic_vector(to_signed(shift, 32));

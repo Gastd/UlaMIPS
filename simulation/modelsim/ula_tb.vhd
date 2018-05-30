@@ -26,6 +26,7 @@
 
 LIBRARY ieee;                                               
 USE ieee.std_logic_1164.all;                                
+use work.Types.all;
 
 ENTITY ula_tb IS
 END ula_tb;
@@ -33,7 +34,7 @@ ARCHITECTURE ula_arch OF ula_tb IS
 -- constants                                                 
 -- signals                                                   
 SIGNAL A : STD_LOGIC_VECTOR(31 DOWNTO 0);
-SIGNAL aluctl : STD_LOGIC_VECTOR(3 DOWNTO 0);
+SIGNAL aluctl : ULA_OP;
 SIGNAL Z : STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL B : STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL zero : STD_LOGIC;
@@ -41,7 +42,7 @@ SIGNAL ovfl : STD_LOGIC;
 COMPONENT ula
     PORT (
     A : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    aluctl : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    aluctl : IN ULA_OP;
     Z : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     B : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     zero : OUT STD_LOGIC;
@@ -64,91 +65,91 @@ init : PROCESS
 BEGIN                                                        
         -- code that executes only once           
     -- and
-    aluctl <=  "0000"; A <= X"0000000F"; B <= X"00000003";
+    aluctl <=  AND_OP; A <= X"0000000F"; B <= X"00000003";
     wait for 10 ps;
     -- or
-    aluctl <=  "0001"; A <= X"0000000C"; B <= X"00000003";
+    aluctl <=   OR_OP; A <= X"0000000C"; B <= X"00000003";
     wait for 10 ps;
     -- add: result = 0
-    aluctl <=  "0010"; A <= X"00000004"; B <= X"FFFFFFFC";
+    aluctl <=  ADD_OP; A <= X"00000004"; B <= X"FFFFFFFC";
     wait for 10 ps;
     -- add: result = overflow
-    aluctl <=  "0010"; A <= X"7FFFFFFF"; B <= X"7FFFFFFF";
+    aluctl <=  ADD_OP; A <= X"7FFFFFFF"; B <= X"7FFFFFFF";
     wait for 10 ps;
     -- add: result = postivo
-    aluctl <=  "0010"; A <= X"00000004"; B <= X"00000010";
+    aluctl <=  ADD_OP; A <= X"00000004"; B <= X"00000010";
     wait for 10 ps;
     -- add: result = negativo
-    aluctl <=  "0010"; A <= X"FFFFFFF4"; B <= X"FFFFFFFA";
+    aluctl <=  ADD_OP; A <= X"FFFFFFF4"; B <= X"FFFFFFFA";
     wait for 10 ps;
     -- addu: result = 0
-    aluctl <=  "0011"; A <= X"00000004"; B <= X"FFFFFFFC";
+    aluctl <= ADDU_OP; A <= X"00000004"; B <= X"FFFFFFFC";
     wait for 10 ps;
     -- addu: result = overflow
-    aluctl <=  "0011"; A <= X"7FFFFFFF"; B <= X"7FFFFFFF";
+    aluctl <= ADDU_OP; A <= X"7FFFFFFF"; B <= X"7FFFFFFF";
     wait for 10 ps;
     -- addu: result = postivo
-    aluctl <=  "0011"; A <= X"00000004"; B <= X"00000010";
+    aluctl <= ADDU_OP; A <= X"00000004"; B <= X"00000010";
     wait for 10 ps;
     -- addu: result = negativo
-    aluctl <=  "0011"; A <= X"FFFFFFF4"; B <= X"FFFFFFFA";
+    aluctl <= ADDU_OP; A <= X"FFFFFFF4"; B <= X"FFFFFFFA";
     wait for 10 ps;
     -- sub: zero
-    aluctl <=  "0100"; A <= X"00000004"; B <= X"00000004";
+    aluctl <=  SUB_OP; A <= X"00000004"; B <= X"00000004";
     wait for 10 ps;
     -- sub: overflow
-    aluctl <=  "0100"; A <= X"7FFFFFFF"; B <= X"FFFFFFFA";
+    aluctl <=  SUB_OP; A <= X"7FFFFFFF"; B <= X"FFFFFFFA";
     wait for 10 ps;
     -- sub: positivo
-    aluctl <=  "0100"; A <= X"FFFFFFFF"; B <= X"FFFFFFFA";
+    aluctl <=  SUB_OP; A <= X"FFFFFFFF"; B <= X"FFFFFFFA";
     wait for 10 ps;
     -- sub: negativo
-    aluctl <=  "0100"; A <= X"00000005"; B <= X"00000022";
+    aluctl <=  SUB_OP; A <= X"00000005"; B <= X"00000022";
     wait for 10 ps;
     -- subu: zero
-    aluctl <=  "0101"; A <= X"00000004"; B <= X"00000004";
+    aluctl <= SUBU_OP; A <= X"00000004"; B <= X"00000004";
     wait for 10 ps;
     -- subu: negativo
-    aluctl <=  "0101"; A <= X"00000004"; B <= X"00000010";
+    aluctl <= SUBU_OP; A <= X"00000004"; B <= X"00000010";
     wait for 10 ps;
     -- subu: positvo
-    aluctl <=  "0101"; A <= X"00000CAD"; B <= X"FFFFFF10";
+    aluctl <= SUBU_OP; A <= X"00000CAD"; B <= X"FFFFFF10";
     wait for 10 ps;
     -- subu: overflow
-    aluctl <=  "0101"; A <= X"7FFFFFFF"; B <= X"FFFFFFFA";
+    aluctl <= SUBU_OP; A <= X"7FFFFFFF"; B <= X"FFFFFFFA";
     wait for 10 ps;
     -- slt 1
-    aluctl <=  "0110"; A <= X"0000195D"; B <= X"0000618D";
+    aluctl <=  SLT_OP; A <= X"0000195D"; B <= X"0000618D";
     wait for 10 ps;
     -- slt 2
-    aluctl <=  "0110"; A <= X"00000002"; B <= X"00000001";
+    aluctl <=  SLT_OP; A <= X"00000002"; B <= X"00000001";
     wait for 10 ps;
     -- sltu
-    aluctl <=  "0111"; A <= X"0000195D"; B <= X"0000618D";
+    aluctl <= SLTU_OP; A <= X"0000195D"; B <= X"0000618D";
     wait for 10 ps;
     -- nor
-    aluctl <=  "1000"; A <= X"FF00FF00"; B <= X"FFFF0000";
+    aluctl <=  NOR_OP; A <= X"FF00FF00"; B <= X"FFFF0000";
     wait for 10 ps;
     -- xor
-    aluctl <=  "1001"; A <= X"0F0F0F0F"; B <= X"F0F0FFFF";
+    aluctl <=  XOR_OP; A <= X"0F0F0F0F"; B <= X"F0F0FFFF";
     wait for 10 ps;
     -- sll
-    aluctl <=  "1010"; A <= X"00000004"; B <=  X"0000000F";
+    aluctl <=  SLL_OP; A <= X"00000004"; B <= X"0000000F";
     wait for 10 ps;
     -- srl
-    aluctl <=  "1011"; A <= X"00000004"; B <=  X"000000F0";
+    aluctl <=  SRL_OP; A <= X"00000004"; B <= X"000000F0";
     wait for 10 ps;
     -- sra
-    aluctl <=  "1100"; A <= X"00000008"; B <=  X"FFFFF000";
+    aluctl <=  SRA_OP; A <= X"00000008"; B <= X"FFFFF000";
     wait for 10 ps;
     -- rtr
-    aluctl <=  "1101"; A <= X"00000004"; B <=  X"0000000F";
+    aluctl <=  RTR_OP; A <= X"00000004"; B <= X"0000000F";
     wait for 10 ps;
     -- rtl  
-    aluctl <=  "1110"; A <= X"00000008"; B <=  X"000000F0";
+    aluctl <=  RTL_OP; A <= X"00000008"; B <= X"000000F0";
     wait for 10 ps;
 	 -- zero
-	aluctl <=  "0100"; A <= X"0000FFFF"; B <= X"0000FFFF";
+	aluctl <=  SUB_OP; A <= X"0000FFFF"; B <= X"0000FFFF";
 	wait for 10 ps;
 END PROCESS init;
 END ula_arch;
