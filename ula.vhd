@@ -4,9 +4,6 @@ use ieee.std_logic_unsigned.all;
 use ieee.numeric_std.all;
 use work.Types.all;
 
--- Notes:
--- Add more test for arithmetic operations
-
 entity ula is
     port(   aluctl:  in ULA_OP;
             A, B: in  std_logic_vector(31 downto 0);
