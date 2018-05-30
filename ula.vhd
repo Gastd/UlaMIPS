@@ -6,7 +6,7 @@ use work.Types.all;
 
 entity ula is
     generic (WSIZE : natural := 32);
-    port(   aluctl:  in ULA_OP;
+    port(   opcode:  in ULA_OP;
             A, B: in  std_logic_vector(WSIZE-1 downto 0);
             Z: out std_logic_vector(WSIZE-1 downto 0);
             ovfl: out std_logic;
@@ -21,11 +21,11 @@ begin
     tmp <= A - B;
     tmp2 <= std_logic_vector(unsigned(A) - unsigned(B));
     Z <= result;
-    proc_ula: process (A, B, aluctl, result, tmp, tmp2) is
+    proc_ula: process (A, B, opcode, result, tmp, tmp2) is
     begin
         ovfl <= '0';
         if (result = X"00000000") then zero <= '1'; else zero <= '0'; end if;
-        case aluctl is
+        case opcode is
             when  AND_OP =>
                 result <= A and B; -- and
             when  OR_OP =>
