@@ -34,18 +34,18 @@ ARCHITECTURE ula_arch OF ula_tb IS
 -- signals                                                   
 SIGNAL A : STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL aluctl : STD_LOGIC_VECTOR(3 DOWNTO 0);
-SIGNAL aluout : STD_LOGIC_VECTOR(31 DOWNTO 0);
+SIGNAL Z : STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL B : STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL zero : STD_LOGIC;
-SIGNAL overflow : STD_LOGIC;
+SIGNAL ovfl : STD_LOGIC;
 COMPONENT ula
     PORT (
     A : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     aluctl : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-    aluout : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    Z : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     B : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     zero : OUT STD_LOGIC;
-    overflow : OUT STD_LOGIC
+    ovfl : OUT STD_LOGIC
     );
 END COMPONENT;
 BEGIN
@@ -54,10 +54,10 @@ BEGIN
 -- list connections between master ports and signals
     A => A,
     aluctl => aluctl,
-    aluout => aluout,
+    Z => Z,
     B => B,
     zero => zero,
-    overflow => overflow
+    ovfl => ovfl
     );
 init : PROCESS                                               
 -- variable declarations                                     

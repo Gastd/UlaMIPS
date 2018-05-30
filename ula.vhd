@@ -9,8 +9,8 @@ use ieee.numeric_std.all;
 entity ula is
     port(   aluctl:  in  std_logic_vector(3 downto 0);
             A, B: in  std_logic_vector(31 downto 0);
-            aluout: out std_logic_vector(31 downto 0);
-            overflow: out std_logic;
+            Z: out std_logic_vector(31 downto 0);
+            ovfl: out std_logic;
             zero: out std_logic );
 end ula;
 
@@ -21,13 +21,13 @@ architecture behavioral of ula is
 begin
     tmp <= A - B;
     tmp2 <= std_logic_vector(unsigned(A) - unsigned(B));
-    aluout <= result;
+    Z <= result;
     proc_ula: process (A, B, aluctl, result, tmp, tmp2) is
         variable shift, count : integer;
     begin
         count := to_integer(unsigned(A));
         if (result = X"00000000") then zero <= '1'; else zero <= '0'; end if;
-        overflow <= '0';
+        ovfl <= '0';
         case aluctl is
             when  "0000" =>
                 result <= A and B; -- and
@@ -35,12 +35,12 @@ begin
                 result <= A or B; -- or
             when  "0010" =>
                 result <= A + B; -- add with overflow
-                overflow <= (A(31) xnor B(31)) and (A(31) xor result(31));
+                ovfl <= (A(31) xnor B(31)) and (A(31) xor result(31));
             when  "0011" =>
                 result <= A + B; -- addu w/o overflow
             when  "0100" =>
                 result <= tmp; -- sub with overflow
-                overflow <= (B(31) and result(31));
+                ovfl <= (B(31) and result(31));
             when  "0101" =>
                 result <= tmp; -- subu w/o overflow
             when  "0110" =>
