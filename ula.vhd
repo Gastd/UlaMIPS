@@ -5,17 +5,18 @@ use ieee.numeric_std.all;
 use work.Types.all;
 
 entity ula is
+    generic (WSIZE : natural := 32);
     port(   aluctl:  in ULA_OP;
-            A, B: in  std_logic_vector(31 downto 0);
-            Z: out std_logic_vector(31 downto 0);
+            A, B: in  std_logic_vector(WSIZE-1 downto 0);
+            Z: out std_logic_vector(WSIZE-1 downto 0);
             ovfl: out std_logic;
             zero: out std_logic );
 end ula;
 
 architecture behavioral of ula is
-	signal tmp : std_logic_vector(31 downto 0);
-	signal tmp2: std_logic_vector(31 downto 0);
-	signal result : std_logic_vector(31 downto 0);
+	signal tmp : std_logic_vector(WSIZE-1 downto 0);
+	signal tmp2: std_logic_vector(WSIZE-1 downto 0);
+	signal result : std_logic_vector(WSIZE-1 downto 0);
 begin
     tmp <= A - B;
     tmp2 <= std_logic_vector(unsigned(A) - unsigned(B));
