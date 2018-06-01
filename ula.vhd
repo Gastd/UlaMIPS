@@ -19,7 +19,7 @@ architecture behavioral of ula is
 begin
     tmp <= A - B;
     Z <= result;
-    proc_ula: process (A, B, opcode, result, tmp, tmp2) is
+    proc_ula: process (A, B, opcode, result, tmp) is
     begin
         ovfl <= '0';
         if (result = X"00000000") then zero <= '1'; else zero <= '0'; end if;
