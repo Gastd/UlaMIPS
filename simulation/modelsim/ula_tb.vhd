@@ -124,8 +124,11 @@ BEGIN
     -- slt 2
     opcode <=  SLT_OP; A <= X"00000002"; B <= X"00000001";
     wait for 10 ps;
-    -- sltu
+    -- sltu 1
     opcode <= SLTU_OP; A <= X"0000195D"; B <= X"0000618D";
+    wait for 10 ps;
+    -- sltu 2
+    opcode <= SLTU_OP; A <= X"FFFF9842"; B <= X"0FFF618D";
     wait for 10 ps;
     -- nor
     opcode <=  NOR_OP; A <= X"FF00FF00"; B <= X"FFFF0000";
