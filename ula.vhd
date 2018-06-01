@@ -15,11 +15,9 @@ end ula;
 
 architecture behavioral of ula is
 	signal tmp : std_logic_vector(WSIZE-1 downto 0);
-	signal tmp2: std_logic_vector(WSIZE-1 downto 0);
 	signal result : std_logic_vector(WSIZE-1 downto 0);
 begin
     tmp <= A - B;
-    tmp2 <= std_logic_vector(unsigned(A) - unsigned(B));
     Z <= result;
     proc_ula: process (A, B, opcode, result, tmp, tmp2) is
     begin
