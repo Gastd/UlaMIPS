@@ -43,7 +43,10 @@ begin
             when  SLT_OP =>
                 result <= (0 => tmp(31), others => '0'); -- slt
             when  SLTU_OP =>
-                result <= (0 => tmp2(31), others => '0'); -- sltu
+                if (unsigned(A) < unsigned(B))
+                    then result <= X"00000001"; -- sltu
+                    else result <= X"00000000";
+                end if;
             when  NOR_OP =>
                 result <= A nor B; -- nor
             when  XOR_OP =>
