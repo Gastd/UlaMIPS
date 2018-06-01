@@ -119,7 +119,7 @@ BEGIN
     opcode <= SUBU_OP; A <= X"7FFFFFFF"; B <= X"FFFFFFFA";
     wait for 10 ps;
     -- slt 1
-    opcode <=  SLT_OP; A <= X"0000195D"; B <= X"0000618D";
+    opcode <=  SLT_OP; A <= X"FFFF9842"; B <= X"0FFF618D";
     wait for 10 ps;
     -- slt 2
     opcode <=  SLT_OP; A <= X"00000002"; B <= X"00000001";
