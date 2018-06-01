@@ -149,10 +149,10 @@ BEGIN
     opcode <=  RTR_OP; A <= X"00000004"; B <= X"0000000F";
     wait for 10 ps;
     -- rtl  
-    opcode <=  RTL_OP; A <= X"00000008"; B <= X"000000F0";
+    opcode <=  RTL_OP; A <= X"00000008"; B <= X"F0000000";
     wait for 10 ps;
-	 -- zero
-	opcode <=  SUB_OP; A <= X"0000FFFF"; B <= X"0000FFFF";
-	wait for 10 ps;
+    -- zero
+    opcode <=  SUB_OP; A <= X"0000FFFF"; B <= X"0000FFFF";
+    wait for 10 ps;
 END PROCESS init;
 END ula_arch;
