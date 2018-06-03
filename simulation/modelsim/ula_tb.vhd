@@ -33,10 +33,10 @@ END ula_tb;
 ARCHITECTURE ula_arch OF ula_tb IS
 -- constants                                                 
 -- signals                                                   
-SIGNAL A : STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL opcode : ULA_OP;
-SIGNAL Z : STD_LOGIC_VECTOR(31 DOWNTO 0);
+SIGNAL A : STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL B : STD_LOGIC_VECTOR(31 DOWNTO 0);
+SIGNAL Z : STD_LOGIC_VECTOR(31 DOWNTO 0);
 SIGNAL zero : STD_LOGIC;
 SIGNAL ovfl : STD_LOGIC;
 COMPONENT ula
@@ -69,6 +69,12 @@ BEGIN
     wait for 10 ps;
     -- or
     opcode <=   OR_OP; A <= X"0000000C"; B <= X"00000003";
+    wait for 10 ps;
+    -- nor
+    opcode <=  NOR_OP; A <= X"FF00FF00"; B <= X"FFFF0000";
+    wait for 10 ps;
+    -- xor
+    opcode <=  XOR_OP; A <= X"0F0F0F0F"; B <= X"F0F0FFFF";
     wait for 10 ps;
     -- add: result = 0
     opcode <=  ADD_OP; A <= X"00000004"; B <= X"FFFFFFFC";
@@ -129,12 +135,6 @@ BEGIN
     wait for 10 ps;
     -- sltu 2
     opcode <= SLTU_OP; A <= X"FFFF9842"; B <= X"0FFF618D";
-    wait for 10 ps;
-    -- nor
-    opcode <=  NOR_OP; A <= X"FF00FF00"; B <= X"FFFF0000";
-    wait for 10 ps;
-    -- xor
-    opcode <=  XOR_OP; A <= X"0F0F0F0F"; B <= X"F0F0FFFF";
     wait for 10 ps;
     -- sll
     opcode <=  SLL_OP; A <= X"00000004"; B <= X"0000000F";
